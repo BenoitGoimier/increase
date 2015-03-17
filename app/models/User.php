@@ -33,4 +33,14 @@ class User extends \Phalcon\Mvc\Model
      */
     public $role;
 
+    /**
+     * Returns the value of field identite
+     *
+     * @return string
+     */
+    public function getIdentite()
+    {
+        return $this->identite;
+    }
+
 }
