@@ -3,7 +3,7 @@
 class UserController extends ControllerBase
 {
 
-    public function projectAction()
+    public function projectAction($userId)
     {
 
     }
