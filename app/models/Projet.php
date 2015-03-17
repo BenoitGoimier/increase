@@ -3,10 +3,6 @@
 class Projet extends \Phalcon\Mvc\Model
 {
 
-    public function intialize(){
-        $this->hasMany("id","Usecase","idProjet",array("alias"=>"usecases"));
-    }
-
     /**
      *
      * @var integer
@@ -181,12 +177,7 @@ class Projet extends \Phalcon\Mvc\Model
         return $this->idClient;
     }
 
-    /**
-     * Returns the value of field idClient
-     *
-     * @return integer
-     */
-    public function getUsecases()
+    public function initialize()
     {
         return $this->hasMany("id","Usecase","idProjet",array("alias"=>"usecases"));
     }

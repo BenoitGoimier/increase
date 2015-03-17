@@ -16,12 +16,10 @@
         <h3 class="panel-title">Equipe</h3>
     </div>
     <div class="panel-body">
-
         {% for dev in projet.getUsecases() %}
-            {{ dev.getCode() }}
+            {{ dev.getIdDev() }}<br/>
         {% endfor %}
     </div>
 </div>
-</div>
 
-<button id="btnMessages">Messages...</button>
+<button id="btnMessages" class="btn btn-info">Messages...</button>
