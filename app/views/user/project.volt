@@ -53,4 +53,4 @@
     </div>
 </div>
 
-<button id="btnMessages" class="btn btn-default">Fermer le projet</button>
+<a href="/increase/user/projects/1" id="btnMessages" class="btn btn-default">Fermer le projet</a>
