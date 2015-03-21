@@ -22,9 +22,9 @@ class UserController extends ControllerBase
             $poidsDev[$usecases->getUsers()->getId()] += $usecases->getPoids();
             $poidsTotal += $usecases->getPoids();
         }
-        foreach($poidsDev as $poidsCent)
+        for($i=0; $i<count($poidsDev); $i++)
         {
-            $poidsCent = $poidsCent / $poidsTotal * 100;
+            $poidsDev[$i] = round($poidsDev[$i] / $poidsTotal * 100,2);
         }
 
         $this->view->setVars(array("projet"=> $projet, "devs"=> $devs, "poids" => $poidsDev));
