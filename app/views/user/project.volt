@@ -17,9 +17,8 @@
     </div>
     <div class="panel-body">
         {% for dev in devs %}
-            {{ dev.getIdentite() }} [{{ dev.getMail() }}]<br/>
+            {{ dev.getIdentite() }} [ {{ poids[dev.getId()] }} % ]<br/>
         {% endfor %}
     </div>
 </div>
-
 <button id="btnMessages" class="btn btn-info">Messages...</button>

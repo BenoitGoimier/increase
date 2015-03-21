@@ -12,12 +12,21 @@ class UserController extends ControllerBase
     {
         $projet = Projet::findFirst($id);
         $devs = [];
-        foreach($projet->getUsecases() as $idDev)
+        $poidsTotal = 0;
+        $poidsDev = [];
+        foreach($projet->getUsecases() as $usecases)
         {
-            if (!in_array($idDev->getUsers(),$devs)) {
-                $devs.array_push($devs, $idDev->getUsers());
+            if (!in_array($usecases->getUsers(),$devs)) {
+                $devs.array_push($devs, $usecases->getUsers());
             }
+            $poidsDev[$usecases->getUsers()->getId()] += $usecases->getPoids();
+            $poidsTotal += $usecases->getPoids();
         }
-        $this->view->setVars(array("projet"=> $projet, "devs"=> $devs));
+        foreach($poidsDev as $poidsCent)
+        {
+            $poidsCent = $poidsCent / $poidsTotal * 100;
+        }
+
+        $this->view->setVars(array("projet"=> $projet, "devs"=> $devs, "poids" => $poidsDev));
     }
 }
