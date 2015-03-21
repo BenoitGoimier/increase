@@ -23,7 +23,7 @@
     </div>
 </div>
 
-<button id="btnMessages" class="btn btn-info">Messages...</button><br/><br/>
+<button id="btnMessages" class="btn btn-primary">Messages...</button><br/><br/>
 
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -31,10 +31,26 @@
     </div>
     <div class="panel-body">
         {% for message in projet.messages %}
-            <h4>{{ message.getObjet() }}</h4>
-            <p>{{ message.getContent() }}</p>
-            <em>{{ message.getDate() }}</em>
-            <hr>
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="heading{{ message.getId() }}">
+                        <h4 class="panel-title">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ message.getId() }}" aria-expanded="false" aria-controls="collapseTwo">
+                                <h4>{{ message.getObjet() }}</h4>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse{{ message.getId() }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{ message.getId() }}">
+                        <div class="panel-body">
+                            <p>{{ message.getContent() }}</p>
+                            <em>{{ message.getDate() }}</em><br/>
+                            <button id="btnMessages" class="btn btn-default">Répondre</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         {% endfor %}
     </div>
 </div>
+
+<button id="btnMessages" class="btn btn-default">Fermer le projet</button>
