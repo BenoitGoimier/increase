@@ -206,4 +206,8 @@ class Message extends \Phalcon\Mvc\Model
         return $this->idFil;
     }
 
+    public function initialize()
+    {
+        $this->belongsTo("idUser","User","id",array("alias"=>"users"));
+    }
 }
