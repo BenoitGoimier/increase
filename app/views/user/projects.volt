@@ -1,4 +1,4 @@
-<h3>Mes projets {{ nom.identite }}</h3>
+<h3>Mes projets {{ nom.getIdentite() }}</h3>
 
 {% for projet in projets %}
     <div class="progress">
