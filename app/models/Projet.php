@@ -179,7 +179,7 @@ class Projet extends \Phalcon\Mvc\Model
 
     public function initialize()
     {
-        return $this->hasMany("id","Usecase","idProjet",array("alias"=>"usecases"));
+        $this->hasMany("id","Usecase","idProjet",array("alias"=>"usecases"));
     }
 
 }

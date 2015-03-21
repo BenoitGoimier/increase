@@ -16,8 +16,8 @@
         <h3 class="panel-title">Equipe</h3>
     </div>
     <div class="panel-body">
-        {% for dev in projet.getUsecases() %}
-            {{ dev.getIdDev() }}<br/>
+        {% for dev in devs %}
+            {{ dev.getIdentite() }} [{{ dev.getMail() }}]<br/>
         {% endfor %}
     </div>
 </div>

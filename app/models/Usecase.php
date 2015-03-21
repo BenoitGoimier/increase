@@ -177,4 +177,9 @@ class Usecase extends \Phalcon\Mvc\Model
         return $this->idDev;
     }
 
+    public function initialize()
+    {
+        $this->belongsTo("idDev","User","id",array("alias"=>"users"));
+    }
+
 }

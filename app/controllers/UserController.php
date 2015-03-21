@@ -11,7 +11,13 @@ class UserController extends ControllerBase
     public function projectAction($id)
     {
         $projet = Projet::findFirst($id);
-
-        $this->view->setVars(array("projet"=> $projet));
+        $devs = [];
+        foreach($projet->getUsecases() as $idDev)
+        {
+            if (!in_array($idDev->getUsers(),$devs)) {
+                $devs.array_push($devs, $idDev->getUsers());
+            }
+        }
+        $this->view->setVars(array("projet"=> $projet, "devs"=> $devs));
     }
 }
