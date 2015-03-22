@@ -1,0 +1,16 @@
+<?php
+
+class ProjectController extends ControllerBase
+{
+
+    public function equipeAction($id)
+    {
+
+    }
+
+    public function messagesAction()
+    {
+
+    }
+
+}
