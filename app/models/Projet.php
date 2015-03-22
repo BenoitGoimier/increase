@@ -188,7 +188,38 @@ class Projet extends \Phalcon\Mvc\Model
         $date1 = new DateTime(date("Y-m-d"));
         $date2 = new DateTime($this->dateFinPrevue);
         $diff = $date1->diff($date2);
-        return $diff->format("%R%a");
+
+        if ($diff->format("%R") == "+"){
+            return $diff->format("%a");
+        } else {
+            return 0;
+        }
+    }
+
+    public function getPercent() {
+        $usecases = Usecase::find(array(
+            "idProjet = $this->id"
+        ));
+        $percent = 0;
+        $total = 0;
+
+        foreach($usecases as $usecase)
+        {
+            $total += $usecase->getPoids();
+            $percent += $usecase->getPoids() * $usecase->getAvancement();
+        }
+
+        $percent /= $total;
+
+        return round($percent,1);
+    }
+
+    public function getClasse() {
+        $date1 = new DateTime($this->dateLancement);
+        $date2 = new DateTime($this->dateFinPrevue);
+        $diff = $date1->diff($date2);
+
+
     }
 
 }

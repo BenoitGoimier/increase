@@ -11,8 +11,9 @@ class UserController extends ControllerBase
         ));
 
         $this->view->setVars(array(
-        "projets" => $projets,
-        "nom" => $user));
+            "projets" => $projets,
+            "nom" => $user
+        ));
     }
 
     public function projectAction($id)
