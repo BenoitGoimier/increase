@@ -3,19 +3,19 @@
 {% for projet in projets %}
     <div class="row">
         <div class="col-md-2">
-            {{ projet.getnom() }}
+            {{ projet.getNom() }}
         </div>
 
         <div class="col-md-6">
             <div class="progress">
-                <div class="progress-bar progress-bar-{{ projet.getClass() }} progress-bar-striped" role="progressbar" aria-valuenow="{{ projet.getPercent() }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ projet.getPercent() }}%">
-                    {{ projet.getPercent() }}%
+                <div class="progress-bar progress-bar-{{ class[projet.getId()] }} progress-bar-striped" role="progressbar" aria-valuenow="{{ percent[projet.getId()] }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ percent[projet.getId()] }}%">
+                    {{ percent[projet.getId()] }}%
                 </div>
             </div>
         </div>
 
         <div class="col-md-2">
-            {{ projet.getDayOff() }} jour(s) restant(s)
+            {{ dayOff[projet.getId()] }} jour(s) restant(s)
         </div>
 
         <div class="col-md-2">
