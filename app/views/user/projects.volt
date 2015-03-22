@@ -19,7 +19,7 @@
         </div>
 
         <div class="col-md-2">
-            <button class="btn btn-default form-control" id="btnOpen">Ouvrir</button>
+            <a class="btn btn-default form-control" href="../project/{{ projet.getId() }}">Ouvrir</a>
         </div>
     </div>
 {% endfor %}
