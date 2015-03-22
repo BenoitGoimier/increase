@@ -214,11 +214,21 @@ class Projet extends \Phalcon\Mvc\Model
         return round($percent,1);
     }
 
-    public function getClasse() {
+    public function getClass() {
         $date1 = new DateTime($this->dateLancement);
         $date2 = new DateTime($this->dateFinPrevue);
         $diff = $date1->diff($date2);
 
+        $time = $diff->format("%a");
+        $timePercent = ($time - $this->getDayOff()) / $time * 100;
+
+        if($this->getDayOff() == 0){
+            return "danger";
+        } else if ($this->getPercent() < $timePercent) {
+            return "warning";
+        } else {
+            return "success";
+        }
 
     }
 

@@ -8,7 +8,7 @@
 
         <div class="col-md-6">
             <div class="progress">
-                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="{{ projet.getPercent() }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ projet.getPercent() }}%">
+                <div class="progress-bar progress-bar-{{ projet.getClass() }} progress-bar-striped" role="progressbar" aria-valuenow="{{ projet.getPercent() }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ projet.getPercent() }}%">
                     {{ projet.getPercent() }}%
                 </div>
             </div>
