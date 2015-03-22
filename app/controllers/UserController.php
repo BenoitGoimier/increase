@@ -5,7 +5,11 @@ class UserController extends ControllerBase
     public function projectsAction($userId)
     {
         $user = User::findFirst($userId);
-        $projets = Projet::find($userId);
+
+        $projets = Projet::find(array(
+            "idClient = $userId"
+        ));
+
         $this->view->setVars(array(
         "projets" => $projets,
         "nom" => $user));

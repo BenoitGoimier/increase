@@ -183,4 +183,12 @@ class Projet extends \Phalcon\Mvc\Model
         $this->hasMany("id","Message","idProjet",array("alias"=>"messages"));
     }
 
+    public function getDayOff()
+    {
+        $date1 = new DateTime(date("Y-m-d"));
+        $date2 = new DateTime($this->dateFinPrevue);
+        $diff = $date1->diff($date2);
+        return $diff->format("%R%a");
+    }
+
 }
