@@ -31,7 +31,6 @@ class UserController extends ControllerBase
 
     public function projectAction($id)
     {
-        $user = User::findFirst($id);
         $projet = Projet::findFirst($id);
         $devs = [];
         $poidsTotal = 0;
@@ -48,6 +47,9 @@ class UserController extends ControllerBase
         {
             $poidsDev[$i] = round($poidsDev[$i] / $poidsTotal * 100,2);
         }
+
+        $userId = $projet->getIdClient();
+        $user = User::findFirst($userId);
 
         $this->view->setVars(array(
             "projet"=> $projet,
