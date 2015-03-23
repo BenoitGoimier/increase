@@ -1,4 +1,4 @@
-<h3>{{ projet.getNom() }} [user.identite] </h3>
+<h3>{{ projet.getNom() }} by {{ nom.getIdentite() }} </h3>
 <div class="panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title">Détails du projet</h3>

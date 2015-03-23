@@ -31,6 +31,7 @@ class UserController extends ControllerBase
 
     public function projectAction($id)
     {
+        $user = User::findFirst($id);
         $projet = Projet::findFirst($id);
         $devs = [];
         $poidsTotal = 0;
@@ -51,6 +52,7 @@ class UserController extends ControllerBase
         $this->view->setVars(array(
             "projet"=> $projet,
             "devs"=> $devs,
+            "nom" => $user,
             "poids" => $poidsDev
         ));
     }
