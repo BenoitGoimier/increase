@@ -17,7 +17,7 @@ class UserController extends ControllerBase
         {
             $dayOff[$projet->getId()] = $this->getDayOff($projet);
             $percent[$projet->getId()] = $this->getPercent($projet);
-            $class[$projet->getId()] = $this->getClass($projet, $dayOff[$projet->getId()], $percent[$projet->getId()]);
+            $class[$projet->getId()] = $this->getClass($projet, $percent[$projet->getId()], $dayOff[$projet->getId()]);
         }
 
         $this->view->setVars(array(
