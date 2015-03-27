@@ -76,4 +76,25 @@ class AuthorController extends ControllerBase
 
     }
 
+    public function projectAction($idProjet=0, $idAuthor=0)
+    {
+        $projet = Projet::findFirst(array("id"=>$idProjet));
+
+        if ($projet != false) {
+            if ($idAuthor != 0) {
+                $usecases = $projet->getUsecases();
+            } else{
+                $projet = "noUser";
+            }
+        } else{
+            $projet = "noProjet";
+        }
+
+        $this->view->setVars(array(
+            "projet"=> $projet,
+            "usecases"=> $usecases,
+            "author"=> $idAuthor,
+        ));
+    }
+
 }
