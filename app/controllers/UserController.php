@@ -31,25 +31,34 @@ class UserController extends ControllerBase
 
     public function projectAction($id)
     {
-        $projet = Projet::findFirst($id);
         $devs = [];
         $poidsTotal = 0;
         $poidsDev = [];
-        foreach($projet->getUsecases() as $usecases)
-        {
-            if (!in_array($usecases->getUsers(),$devs)) {
-                $devs.array_push($devs, $usecases->getUsers());
+        $projet = Projet::findFirst($id);
+
+        if ($projet != false) {
+
+            foreach ($projet->getUsecases() as $usecases) {
+
+                if (!in_array($usecases->getUsers(), $devs)) {
+                    $devs . array_push($devs, $usecases->getUsers());
+                }
+
+                $poidsDev[$usecases->getUsers()->getId()] += $usecases->getPoids();
+                $poidsTotal += $usecases->getPoids();
             }
-            $poidsDev[$usecases->getUsers()->getId()] += $usecases->getPoids();
-            $poidsTotal += $usecases->getPoids();
-        }
-        for($i=0; $i<count($poidsDev); $i++)
-        {
-            $poidsDev[$i] = round($poidsDev[$i] / $poidsTotal * 100,2);
+
+            for ($i = 0; $i < count($poidsDev); $i++) {
+                $poidsDev[$i] = round($poidsDev[$i] / $poidsTotal * 100, 2);
+            }
+
+            $userId = $projet->getIdClient();
+            $user = User::findFirst($userId);
+
+        } else{
+            $projet = "";
         }
 
-        $userId = $projet->getIdClient();
-        $user = User::findFirst($userId);
 
         $this->view->setVars(array(
             "projet"=> $projet,
