@@ -45,7 +45,6 @@
                             </div>
                             <div id="collapse{{ usecase.getCode() }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{ usecase.getCode() }}">
                                 <div class="panel-body">
-                                    {{ usecase.getTaches() }}
                                     <br/>
                                     <button id="btnMessages" class="btn btn-default">Répondre</button>
                                 </div>

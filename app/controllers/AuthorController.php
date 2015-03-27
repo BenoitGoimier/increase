@@ -92,7 +92,7 @@ class AuthorController extends ControllerBase
 
         if ($projet != false) {
             if ($idAuthor != 0) {
-                //$usecases = $projet->getUsecases();
+                $usecases = $projet->getUsecases();
             } else{
                 $projet = "noUser";
             }
@@ -102,7 +102,7 @@ class AuthorController extends ControllerBase
 
         $this->view->setVars(array(
             "projet"=> $projet,
-            //"usecases"=> $usecases,
+            "usecases"=> $usecases,
             "author"=> $idAuthor,
         ));
     }
