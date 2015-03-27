@@ -906,7 +906,7 @@ class Jquery extends JsUtils{
 	/**
 	 * Plugin
 	 *
-	 * Load a plugin library
+	 * Load a plugins library
 	 *
 	 * @access	public
 	 * @return	void

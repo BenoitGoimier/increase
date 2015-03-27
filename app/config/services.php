@@ -1,12 +1,18 @@
 <?php
 
-use Phalcon\DI\FactoryDefault;
+
 use Phalcon\Mvc\View;
+use Phalcon\DI\FactoryDefault;
+use Phalcon\Mvc\Dispatcher;
+use Phalcon\Mvc\Url as UrlProvider;
+use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
+use Phalcon\Mvc\Model\Metadata\Memory as MetaData;
+use Phalcon\Session\Adapter\Files as SessionAdapter;
+use Phalcon\Flash\Session as FlashSession;
+use Phalcon\Events\Manager as EventsManager;
 use Phalcon\Mvc\Url as UrlResolver;
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
-use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
-use Phalcon\Session\Adapter\Files as SessionAdapter;
 
 /**
  * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
@@ -22,6 +28,12 @@ $di->set('url', function () use ($config) {
 
     return $url;
 }, true);
+
+
+
+
+
+
 
 /**
  * Setting up the view component
@@ -84,4 +96,27 @@ $di->set("jquery",function(){
     $jquery= new Ajax\JsUtils(array("driver"=>"Jquery"));
     $jquery->bootstrap(new Ajax\Bootstrap());
     return $jquery;
+});
+
+/**
+ * We register the events manager
+ */
+$di->set('dispatcher', function() use ($di) {
+
+    $eventsManager = new EventsManager();
+
+    /**
+     * Handle exceptions and not-found exceptions using NotFoundPlugin
+     */
+    $eventsManager->attach('dispatch:beforeException', new NotFoundPlugin());
+
+    /**
+     * Check if the user is allowed to access certain action using the SecurityPlugin
+     */
+    //$eventsManager->attach('dispatch:beforeDispatch', new SecurityPlugin());
+
+    $dispatcher = new Dispatcher;
+    $dispatcher->setEventsManager($eventsManager);
+
+    return $dispatcher;
 });
