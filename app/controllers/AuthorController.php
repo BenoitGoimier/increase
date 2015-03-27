@@ -24,10 +24,9 @@ class AuthorController extends ControllerBase
         foreach($projets as $projet)
         {
             $dayOff[$projet->id] = $this->getDayOff($projet);
-            $percent[$projet->id] = $this->getPercent($projet, $userId);
+            $percent[$projet->id] = $this->getPercent($userId);
             $class[$projet->id] = $this->getClass($projet, $percent[$projet->id], $dayOff[$projet->id]);
         }
-
 
         $this->view->setVars(array(
             "projets" => $projets,
@@ -51,17 +50,19 @@ class AuthorController extends ControllerBase
         }
     }
 
-    protected function getPercent($projet, $id) {
+    protected function getPercent($id) {
         $percent = 0;
         $total = 0;
 
-        /*foreach($projet->usecase as $usecase)
+        $projet = Projet::findFirst(array("id"=>$id));
+
+        foreach($projet->getUsecases() as $usecase)
         {
             if($usecase->getIdDev() == $id){
                 $percent += $usecase->getPoids() * $usecase->getAvancement();
+                $total += $usecase->getPoids();
             }
-            $total += $usecase->getPoids();
-        }*/
+        }
 
         $percent /= $total;
 
