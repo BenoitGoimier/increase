@@ -147,5 +147,4 @@ class Tache extends \Phalcon\Mvc\Model
     {
         return $this->codeUseCase;
     }
-
 }
