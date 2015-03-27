@@ -10,16 +10,24 @@ class AuthorController extends ControllerBase
         $percent = [];
         $class = [];
 
-        $projets = Projet::find(array(
-            "idClient = $userId"
-        ));
+        $builder = new \Phalcon\Mvc\Model\Query\Builder();
+
+        $projets = $builder
+            ->columns(array("projet.id,projet.nom,usecase.avancement,usecase.poids,projet.dateFinPrevue,projet.dateLancement"))
+            ->from("usecase")
+            ->join("projet", "projet.id=usecase.idProjet")
+            ->where("usecase.idDev =". $userId)
+            ->groupBy(array('usecase.idProjet'))
+            ->getQuery()
+            ->execute();
 
         foreach($projets as $projet)
         {
-            $dayOff[$projet->getId()] = $this->getDayOff($projet);
-            $percent[$projet->getId()] = $this->getPercent($projet);
-            $class[$projet->getId()] = $this->getClass($projet, $percent[$projet->getId()], $dayOff[$projet->getId()]);
+            $dayOff[$projet->id] = $this->getDayOff($projet);
+            $percent[$projet->id] = $this->getPercent($projet, $userId);
+            $class[$projet->id] = $this->getClass($projet, $percent[$projet->id], $dayOff[$projet->id]);
         }
+
 
         $this->view->setVars(array(
             "projets" => $projets,
@@ -33,7 +41,7 @@ class AuthorController extends ControllerBase
     protected function getDayOff($projet)
     {
         $date1 = new DateTime(date("Y-m-d"));
-        $date2 = new DateTime($projet->getDateFinPrevue());
+        $date2 = new DateTime($projet->dateFinPrevue);
         $diff = $date1->diff($date2);
 
         if ($diff->format("%R") == "+"){
@@ -43,15 +51,17 @@ class AuthorController extends ControllerBase
         }
     }
 
-    protected function getPercent($projet) {
+    protected function getPercent($projet, $id) {
         $percent = 0;
         $total = 0;
 
-        foreach($projet->getUsecases() as $usecase)
+        /*foreach($projet->usecase as $usecase)
         {
+            if($usecase->getIdDev() == $id){
+                $percent += $usecase->getPoids() * $usecase->getAvancement();
+            }
             $total += $usecase->getPoids();
-            $percent += $usecase->getPoids() * $usecase->getAvancement();
-        }
+        }*/
 
         $percent /= $total;
 
@@ -59,8 +69,8 @@ class AuthorController extends ControllerBase
     }
 
     protected function getClass($projet, $percent, $dayOff) {
-        $date1 = new DateTime($projet->getDateLancement());
-        $date2 = new DateTime($projet->getDateFinPrevue());
+        $date1 = new DateTime($projet->dateLancement);
+        $date2 = new DateTime($projet->dateFinPrevue);
         $diff = $date1->diff($date2);
 
         $time = $diff->format("%a");
@@ -82,7 +92,7 @@ class AuthorController extends ControllerBase
 
         if ($projet != false) {
             if ($idAuthor != 0) {
-                $usecases = $projet->getUsecases();
+                //$usecases = $projet->getUsecases();
             } else{
                 $projet = "noUser";
             }
@@ -92,7 +102,7 @@ class AuthorController extends ControllerBase
 
         $this->view->setVars(array(
             "projet"=> $projet,
-            "usecases"=> $usecases,
+            //"usecases"=> $usecases,
             "author"=> $idAuthor,
         ));
     }
